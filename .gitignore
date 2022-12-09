@@ -1,0 +1,6 @@
+/dist/
+/.idea/
+/poetry.lock
+.DS_Store
+__pycache__
+/.pytest_cache/
