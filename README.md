@@ -24,4 +24,9 @@ for count in timed_count(0.5):
     print(count)
 ```
 
+```python
+TimedCount(count=0, time=0.000, lag=0.000)
+TimedCount(count=1, time=0.500, lag=0.000)
+TimedCount(count=2, time=1.000, lag=0.000)
+```
 For all usage examples see [examples/](https://github.com/morefigs/timed-count/tree/main/examples).
