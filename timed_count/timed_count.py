@@ -5,7 +5,7 @@ from time import sleep
 
 from stoppy import Stopwatch
 
-from timed_count.timed_count_cls import TimedCount, TimedCountError
+from timed_count.cls_timed_count import TimedCount, TimedCountError
 
 
 # Affects timer precision, but also prevents high CPU usage
