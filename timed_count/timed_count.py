@@ -23,16 +23,16 @@ def timed_count(period: float,
     decreasing this value below the default value will begin to significantly increase CPU usage. This time error is for
     an individual iteration only, there is no cumulative time error over multiple iterations.
     """
-    count = start
+    index = start
 
     with Stopwatch() as stopwatch:
         while True:
-            if stop is not None and count >= stop:
+            if stop is not None and index >= stop:
                 return
 
             # Starts the stopwatch on first call, guaranteeing that the first call of stopwatch.time returns 0
-            timed_count_ = TimedCount(period, count, stopwatch.time(True))
-            count += 1
+            timed_count_ = TimedCount(period, index, stopwatch.time(True))
+            index += 1
 
             # Block the iteration until the next count time
             while stopwatch.time() < timed_count_.time:
