@@ -8,17 +8,20 @@ from stoppy import Stopwatch
 from timed_count.cls_timed_count import TimedCount, TimedCountError
 
 
-# Affects timer precision, but also prevents high CPU usage
-_CPU_SLEEP_S = 0.0001
-
-
-def timed_count(period: float, start: int = 0, stop: Optional[int] = None) -> Iterator[TimedCount]:
+def timed_count(period: float,
+                start: int = 0,
+                stop: Optional[int] = None,
+                temporal_resolution: float = 0.0001) -> Iterator[TimedCount]:
     """
     `timed-count` is a generator function that returns an iterator that delays each iteration by the specified time
     period. It can be used to execute code at a precise frequency.
     :param period: The interval period, in seconds.
     :param start: The number of time counts to delay starting by.
     :param stop: The number of time counts to automatically stop after.
+    :param temporal_resolution: The approximate maximum temporal resolution (or time error) for each iteration, in
+    seconds. A smaller temporal resolution value will result in a smaller time error and higher precision. However,
+    decreasing this value below the default value will begin to significantly increase CPU usage. This time error is for
+    an individual iteration only, there is no cumulative time error over multiple iterations.
     """
     count = start
 
@@ -33,6 +36,6 @@ def timed_count(period: float, start: int = 0, stop: Optional[int] = None) -> It
 
             # Block the iteration until the next count time
             while stopwatch.time() < timed_count_.time:
-                sleep(_CPU_SLEEP_S)
+                sleep(temporal_resolution)
 
             yield timed_count_
