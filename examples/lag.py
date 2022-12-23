@@ -4,14 +4,14 @@ second.
 """
 from time import sleep
 
-from timed_count import timed_count, TimedCountError
+from timed_count import timed_count, CountDelayedError
 
 
 for count in timed_count(0.5):
     print(count)
 
     if count.lag > 0.5:
-        raise TimedCountError('timed count lagged too much')
+        raise CountDelayedError('timed count lagged too much')
 
     # Wait longer than the count period!
     sleep(0.6)
