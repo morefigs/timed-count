@@ -19,20 +19,21 @@ def timed_count(period: float,
     :param period: The interval period, in seconds.
     :param start: The number of time counts to delay starting by.
     :param stop: The number of time counts to automatically stop after.
-    :param temporal_resolution_exponent: The approximate maximum temporal resolution (or time error) for each iteration,
-    in seconds. A smaller temporal resolution value will result in a smaller time error and higher precision. However,
-    decreasing this value below the default value will begin to significantly increase CPU usage. This time error is for
-    an individual iteration only, there is no cumulative time error over multiple iterations.
+    :param temporal_resolution_exponent: The temporal resolution exponent to use when blocking the next iteration. A
+    lower value will give higher resolution and precision but result in higher CPU usage. Use caution lowering below the
+    default value. This precision is for an individual iteration only, there is no cumulative time error over multiple
+    iterations.
     """
     index = start
+
+    # E.g. 10 ** -4 = 0.0001
+    cpu_sleep_s = 10 ** temporal_resolution_exponent
 
     # count decimal places matches period decimal places
     count_dp = max(1, -Decimal(str(period)).as_tuple().exponent)
 
     # time decimal places one less than temporal resolution
     time_dp = max(count_dp, -temporal_resolution_exponent - 1)
-
-    cpu_sleep_s = 10 ** temporal_resolution_exponent
 
     with Stopwatch() as stopwatch:
         while True:
