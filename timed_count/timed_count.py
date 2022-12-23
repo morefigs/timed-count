@@ -39,9 +39,9 @@ def timed_count(period: float,
             if stop is not None and index >= stop:
                 return
 
-            # Starts the stopwatch on first call, guaranteeing that the first call of stopwatch.time returns 0
-            timed_count_ = TimedCount(period, index, stopwatch.time(True))
-            index += 1
+            # Starts the stopwatch on first call, so first call returns exactly 0
+            time_ready = stopwatch.time(True)
+            time = time_ready
 
             # Block the iteration until the next count time
             while stopwatch.time() < timed_count_.time:
