@@ -7,5 +7,5 @@ from timed_count import timed_count, TimedCountError
 for count in timed_count(0.01):
     print(count)
 
-    if count.lag:
+    if count.delayed:
         raise TimedCountError('high iteration frequency could not be maintained')
