@@ -1,1 +1,2 @@
-from timed_count.timed_count import timed_count, TimedCountError
+from timed_count.timed_count import timed_count
+from timed_count.cls_timed_count import TimedCountError, CountDelayedError

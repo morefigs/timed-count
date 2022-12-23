@@ -39,5 +39,11 @@ class TimedCount:
         return self._time_ready - self.time
 
 
+
+# Catch all error class for all package related errors
 class TimedCountError(Exception):
+    pass
+
+
+class CountDelayedError(TimedCountError):
     pass
