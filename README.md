@@ -1,8 +1,8 @@
 # timed-count
 
-`timed-count` is a generator function that returns an iterator that delays each iteration by the specified time period. It can be used to execute code at a precise frequency.
+`timed-count` provides a generator function that returns an iterator that delays each iteration by the specified time period. It can be used to execute code at a precise frequency.
 
-`timed-count` is a good replacement for a loop that contains a `time.sleep` call. It is precise, does not dependent on the loop execution time, and won't accumulate temporal drift.
+`timed-count` is a good replacement for a loop that contains a call to `time.sleep`. It is precise, does not dependent on the loop execution time, and won't accumulate temporal drift.
 
 ## Installation
 
