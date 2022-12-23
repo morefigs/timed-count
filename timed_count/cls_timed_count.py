@@ -5,17 +5,18 @@ from dataclasses import dataclass
 class TimedCount:
     period: float
     index: int
+    time: float
     _time_ready: float
 
     def __repr__(self) -> str:
         return f'{self.__class__.__name__}(index={self.index}, time={self.time:.03f}, lag={self.lag:.03f})'
 
     @property
-    def time(self) -> float:
+    def count(self) -> float:
         """
-        The count time, in seconds since timed_count was called.
+        The nominal count time, in seconds since timed_count was called.
         """
-        return self.index * self.period
+        return self.period * self.index
 
     @property
     def buffer(self) -> float:
