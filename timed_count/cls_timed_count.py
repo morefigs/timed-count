@@ -22,9 +22,7 @@ class TimedCount:
         """
         The length of time before the nominal count time that the count was requested. The minimum buffer is zero.
         """
-        if self.time < self._time_ready:
-            return 0
-        return self.time - self._time_ready
+        return max(0.0, self.count - self._time_ready)
 
     @property
     def lag(self) -> float:
