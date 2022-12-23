@@ -24,8 +24,6 @@ for count in timed_count(0.5):
     print(count)
 ```
 
-Output:
-
 ```python
 TimedCount(index=0, count=0.0, time=0.000, lag=0.000)
 TimedCount(index=1, count=0.5, time=0.500, lag=0.000)
