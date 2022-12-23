@@ -36,7 +36,7 @@ def timed_count(period: float,
 
     with Stopwatch() as stopwatch:
         while True:
-            if stop is not None and index >= stop:
+            if stop is not None and count >= stop:
                 return
 
             # Starts the stopwatch on first call, so first call returns exactly 0
@@ -44,7 +44,12 @@ def timed_count(period: float,
             time = time_ready
 
             # Block the iteration until the next count time
-            while stopwatch.time() < timed_count_.time:
-                sleep(temporal_resolution)
+            count = period * index
+            while time < count:
+                sleep(cpu_sleep_s)
+                time = stopwatch.time()
+
+            timed_count_ = TimedCount(period, index, time, time_ready, count_dp, time_dp)
+            index += 1
 
             yield timed_count_
