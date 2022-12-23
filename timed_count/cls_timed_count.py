@@ -7,9 +7,12 @@ class TimedCount:
     index: int
     time: float
     _time_ready: float
+    _count_dp: int
+    _time_dp: int
 
     def __repr__(self) -> str:
-        return f'{self.__class__.__name__}(index={self.index}, time={self.time:.03f}, lag={self.lag:.03f})'
+        return (f'{self.__class__.__name__}(index={self.index}, count={self.count:.{self._count_dp}f}, '
+                f'time={self.time:.{self._time_dp}f}, lag={self.lag:.{self._time_dp}f})')
 
     @property
     def count(self) -> float:

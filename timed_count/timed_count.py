@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Optional
 from collections.abc import Iterator
 from time import sleep
+from decimal import Decimal
 
 from stoppy import Stopwatch
 
@@ -11,19 +12,27 @@ from timed_count.cls_timed_count import TimedCount
 def timed_count(period: float,
                 start: int = 0,
                 stop: Optional[int] = None,
-                temporal_resolution: float = 0.0001) -> Iterator[TimedCount]:
+                temporal_resolution_exponent: int = -4) -> Iterator[TimedCount]:
     """
     `timed-count` is a generator function that returns an iterator that delays each iteration by the specified time
     period. It can be used to execute code at a precise frequency.
     :param period: The interval period, in seconds.
     :param start: The number of time counts to delay starting by.
     :param stop: The number of time counts to automatically stop after.
-    :param temporal_resolution: The approximate maximum temporal resolution (or time error) for each iteration, in
-    seconds. A smaller temporal resolution value will result in a smaller time error and higher precision. However,
+    :param temporal_resolution_exponent: The approximate maximum temporal resolution (or time error) for each iteration,
+    in seconds. A smaller temporal resolution value will result in a smaller time error and higher precision. However,
     decreasing this value below the default value will begin to significantly increase CPU usage. This time error is for
     an individual iteration only, there is no cumulative time error over multiple iterations.
     """
     index = start
+
+    # count decimal places matches period decimal places
+    count_dp = max(1, -Decimal(str(period)).as_tuple().exponent)
+
+    # time decimal places one less than temporal resolution
+    time_dp = max(count_dp, -temporal_resolution_exponent - 1)
+
+    cpu_sleep_s = 10 ** temporal_resolution_exponent
 
     with Stopwatch() as stopwatch:
         while True:
