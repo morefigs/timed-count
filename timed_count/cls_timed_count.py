@@ -24,22 +24,25 @@ class TimedCount:
     @property
     def buffer(self) -> float:
         """
-        The length of time before the nominal count time that the count was requested. The minimum buffer is zero.
+        The length of time before the nominal count time that the iteration was requested. The minimum buffer is zero.
         """
         return max(0.0, self.count - self._time_ready)
 
     @property
     def lag(self) -> float:
         """
-        The length of time after the nominal count time that the count was requested. The minimum lag is zero.
+        The length of time after the nominal count time that the iteration was yielded. The lag is always at least
+        slightly above zero due to delays from internal code execution.
 
-        If the lag is non-zero, then the code executed since the previous count took longer than the count period, which
-        is generally undesirable.
+        To check if the iteration was actually delayed by the caller, check the `delayed` attribute.
         """
         return self.time - self.count
 
     @property
     def delayed(self) -> bool:
+        """
+        Shows if this iteration was requested after the nominal count time.
+        """
         if self.index:
             return not self.buffer
 
