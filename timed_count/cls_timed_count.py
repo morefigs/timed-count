@@ -33,10 +33,15 @@ class TimedCount:
         If the lag is non-zero, then the code executed since the previous count took longer than the count period, which
         is generally undesirable.
         """
-        if self._time_ready < self.time:
-            return 0
-        return self._time_ready - self.time
+        return self.time - self.count
 
+    @property
+    def delayed(self) -> bool:
+        if self.index:
+            return not self.buffer
+
+        # Define index of 0 as never delayed
+        return False
 
 
 # Catch all error class for all package related errors
