@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class TimedCount:
     period: float
     index: int
+    count: float
     time: float
     _time_ready: float
     _count_dp: int
@@ -13,13 +14,6 @@ class TimedCount:
     def __repr__(self) -> str:
         return (f'{self.__class__.__name__}(index={self.index}, count={self.count:.{self._count_dp}f}, '
                 f'time={self.time:.{self._time_dp}f}, lag={self.lag:.{self._time_dp}f})')
-
-    @property
-    def count(self) -> float:
-        """
-        The nominal count time, in seconds since timed_count was called.
-        """
-        return self.period * self.index
 
     @property
     def buffer(self) -> float:
@@ -34,19 +28,19 @@ class TimedCount:
         The length of time after the nominal count time that the iteration was yielded. The lag is always at least
         slightly above zero due to delays from internal code execution.
 
-        To check if the iteration was actually delayed by the caller, check the `delayed` attribute.
+        To check if the iteration was actually missed by the caller, check the `missed` attribute.
         """
         return self.time - self.count
 
     @property
-    def delayed(self) -> bool:
+    def missed(self) -> bool:
         """
         Shows if this iteration was requested after the nominal count time.
         """
-        return self._time_requested > self.count
+        return self._time_ready > self.count
 
 
-# Catch all error class for all package related errors
+# Catch all error class
 class TimedCountError(Exception):
     pass
 
