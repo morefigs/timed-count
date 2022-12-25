@@ -3,7 +3,15 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class TimedCount:
-    period: float
+    """
+    TimedCount object that represents the timed count for a single iteration.
+    :param index: The index of the count.
+    :param count: The nominal count time, in seconds since timed_count was called.
+    :param time: The actual count time, in seconds since timed_count was called.
+    :param _time_ready: The time this iteration was initially requested.
+    :param _count_dp: Decimal places to represent the `count` value with as a string.
+    :param _time_dp: Decimal places to represent the `time` value with as a string.
+    """
     index: int
     count: float
     time: float
