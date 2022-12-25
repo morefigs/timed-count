@@ -43,11 +43,7 @@ class TimedCount:
         """
         Shows if this iteration was requested after the nominal count time.
         """
-        if self.index:
-            return not self.buffer
-
-        # Define index of 0 as never delayed
-        return False
+        return self._time_requested > self.count
 
 
 # Catch all error class for all package related errors
