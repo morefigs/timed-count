@@ -53,5 +53,5 @@ class TimedCountError(Exception):
     pass
 
 
-class CountDelayedError(TimedCountError):
+class CountMissedError(TimedCountError):
     pass
