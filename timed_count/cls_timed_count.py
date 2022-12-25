@@ -13,7 +13,7 @@ class TimedCount:
 
     def __repr__(self) -> str:
         return (f'{self.__class__.__name__}(index={self.index}, count={self.count:.{self._count_dp}f}, '
-                f'time={self.time:.{self._time_dp}f}, lag={self.lag:.{self._time_dp}f})')
+                f'time={self.time:.{self._time_dp}f}, missed={self.missed})')
 
     @property
     def buffer(self) -> float:
