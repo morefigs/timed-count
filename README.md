@@ -25,9 +25,9 @@ for count in timed_count(0.5):
 ```
 
 ```python
-TimedCount(index=0, count=0.0, time=0.000, lag=0.000)
-TimedCount(index=1, count=0.5, time=0.500, lag=0.000)
-TimedCount(index=2, count=1.0, time=1.000, lag=0.000)
+TimedCount(index=0, count=0.0, time=0.000, missed=False)
+TimedCount(index=1, count=0.5, time=0.500, missed=False)
+TimedCount(index=2, count=1.0, time=1.000, missed=False)
 ...
 ```
 For all usage examples see [examples/](https://github.com/morefigs/timed-count/tree/main/examples).
