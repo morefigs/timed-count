@@ -14,8 +14,8 @@ def timed_count(period: float,
                 stop: Optional[int] = None,
                 temporal_resolution: float = 0.0001) -> Iterator[TimedCount]:
     """
-    A generator function that returns an iterator that delays each iteration by the specified time period. It can be
-    used to execute code at a precise frequency.
+    A generator function that returns  an iterator that delays each iteration by a specified time period. It can be used
+    to repeatedly execute code at a precise frequency.
     :param period: The interval period, in seconds.
     :param start: The number of time counts to delay starting by.
     :param stop: The number of time counts to automatically stop after.
