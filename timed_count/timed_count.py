@@ -6,13 +6,14 @@ from decimal import Decimal
 
 from stoppy import Stopwatch
 
-from timed_count.cls_timed_count import TimedCount
+from timed_count.cls_timed_count import TimedCount, CountMissedError
 
 
 def timed_count(period: float,
                 start: int = 0,
                 stop: Optional[int] = None,
-                temporal_resolution: float = 0.0001) -> Iterator[TimedCount]:
+                temporal_resolution: float = 0.0001,
+                error_on_missed: bool = False) -> Iterator[TimedCount]:
     """
     A generator function that returns  an iterator that delays each iteration by a specified time period. It can be used
     to repeatedly execute code at a precise frequency.
@@ -23,6 +24,8 @@ def timed_count(period: float,
     seconds. A smaller value will give higher resolution and precision but result in higher CPU usage. Use caution
     lowering below the default value. This precision is for an individual iteration only, there is no cumulative time
     error over multiple iterations.
+    :param error_on_missed: Automatically raise CountMissedError if the TimedCount's missed attribute is True. Useful
+    for testing that the iterations are not lagging behind.
     """
     index = start
 
@@ -46,6 +49,11 @@ def timed_count(period: float,
             while (time := stopwatch.time()) < count:
                 sleep(temporal_resolution)
 
-            yield TimedCount(index, count, time, time_ready, count_dp, time_dp)
+            timed_count_ = TimedCount(index, count, time, time_ready, count_dp, time_dp)
+
+            if error_on_missed and timed_count_.missed:
+                raise CountMissedError()
+
+            yield timed_count_
 
             index += 1
