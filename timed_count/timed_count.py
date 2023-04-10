@@ -46,8 +46,10 @@ def timed_count(period: float,
             time_ready = stopwatch.time(True)
 
             # Block the iteration until the next count time
-            while (time := stopwatch.time()) < count:
+            time = stopwatch.time()
+            while time < count:
                 sleep(temporal_resolution)
+                time = stopwatch.time()
 
             timed_count_ = TimedCount(index, count, time, time_ready, count_dp, time_dp)
 
