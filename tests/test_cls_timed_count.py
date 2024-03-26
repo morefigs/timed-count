@@ -5,13 +5,13 @@ from timed_count import TimedCount
 
 class TestTimedCount:
     def test_init(self):
-        tc = TimedCount(1, count=2.0, time=3.0, _time_ready=4.0, _count_dp=5, _time_dp=6)
-        assert tc.index == 1
-        assert tc.count == approx(2.0)
-        assert tc.time == approx(3.0)
-        assert tc._time_ready == approx(4.0)
-        assert tc._count_dp == 5
-        assert tc._time_dp == 6
+        count = TimedCount(1, count=2.0, time=3.0, _time_ready=4.0, _count_dp=5, _time_dp=6)
+        assert count.index == 1
+        assert count.count == approx(2.0)
+        assert count.time == approx(3.0)
+        assert count._time_ready == approx(4.0)
+        assert count._count_dp == 5
+        assert count._time_dp == 6
 
     def test_repr(self):
         assert repr(TimedCount(1, count=2.34, time=2.345, _time_ready=0.0, _count_dp=2, _time_dp=3)) == \
