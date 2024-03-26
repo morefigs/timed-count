@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "timed-count"
-version = "1.2.0"
+version = "2.0.0"
 description = "timed-count provides an iterator that delays each iteration by a specified time period. It can be used to repeatedly execute code at a precise frequency."
 authors = ["morefigs"]
 homepage = "https://github.com/morefigs/timed-count"
